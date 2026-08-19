@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/08/2026 às 22:53
+-- Tempo de geração: 19/08/2026 às 22:58
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -24,6 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `filmes`
+--
+
+CREATE TABLE `filmes` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `diretor` varchar(100) NOT NULL,
+  `duracao_minutos` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `produtos`
 --
 
@@ -35,17 +48,15 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `produtos`
---
-
-INSERT INTO `produtos` (`id`, `nome`, `preco`, `quantidade`) VALUES
-(2, 'Gloss', 5, 100),
-(4, 'Blush', 15, 237),
-(5, 'Rímel', 12, 337);
-
---
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `filmes`
+--
+ALTER TABLE `filmes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ix_filmes_id` (`id`);
 
 --
 -- Índices de tabela `produtos`
@@ -59,10 +70,16 @@ ALTER TABLE `produtos`
 --
 
 --
+-- AUTO_INCREMENT de tabela `filmes`
+--
+ALTER TABLE `filmes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
