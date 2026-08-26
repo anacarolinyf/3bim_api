@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float
 from database import Base
+
 class ProdutoDB(Base):
     __tablename__ = 'produtos'
     id = Column(Integer, primary_key=True, index=True)
@@ -13,5 +14,5 @@ class FilmeDB(Base):
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String(100), nullable=False)
     diretor = Column(String(100), nullable=False)
-    diretor = Column(String(100), nullable=False)
+    genero = Column(String(100), nullable=False)
     duracao_minutos = Column(Float, nullable=False)

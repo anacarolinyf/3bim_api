@@ -1,28 +1,33 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang='pt-br'>
+<html lang="pt-br">
 <head>
-    <meta charset='UTF-8'>
-    <title>Produtos</title>
+    <meta charset="UTF-8">
+    <title>Lista de Filmes</title>
 </head>
+
 <body>
     <h1>Lista de Produtos</h1>
-    <ul id='lista-produtos'></ul>
-    
-    <script>
 
-       fetch('http://127.0.0.1:8000/produtos')
-        .then(resposta => resposta.json())
-        .then(produtos => {
-            const lista = document.getElementById('lista-produtos');
-            produtos.forEach(produto => {
-                const item = document.createElement('li');
-                item.textContent =
-                    `${produto.filme} - R$ ${produto.preco} (qtd: ${produto.quantidade})`;
-                lista.appendChild(item);
-                 });
+    <ul id="lista-produtos"></ul>
+
+    <script>
+        fetch('http://127.0.0.1:8000/filmes')
+            .then(resposta => resposta.json())
+            .then(filmes => {
+                const lista = document.getElementById('lista-produtos');
+
+                filmes.forEach(filme => {
+                    const item = document.createElement('li');
+
+                    item.textContent =
+                        `${filme.titulo} - Diretor: ${filme.diretor} - Gênero: ${filme.genero} - Duração: ${filme.duracao_minutos} minutos`;
+
+                    lista.appendChild(item);
+                });
             })
-            .catch(erro => console.error('Erro ao buscar produtos:', erro));
- </script>
+            .catch(erro => {
+                console.error('Erro ao buscar filmes:', erro);
+            });
+    </script>
 </body>
 </html>
