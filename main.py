@@ -80,12 +80,10 @@ def atualizar_produto(
 
 
 # GET /filmes/{id} -> consulta um produto pelo id no banco
-@app.get("/filmes/{filme_id}", response_model=FilmeResponse)
-def obter_filme(filme_id: int, db: Session = Depends(get_db)):
-    filme = db.query(FilmeDB).filter(FilmeDB.id == filme_id).first()
-    if filme is None:
-        raise HTTPException(status_code=404, detail="Filme não encontrado")
-    return filme
+@app.get("/filmes", response_model=list[FilmeResponse])
+def listar_filmes(db: Session = Depends(get_db)):
+    return db.query(FilmeDB).all()
+
 
 @app.post("/filmes", response_model=FilmeResponse, status_code=201)
 def criar_filme(filme: FilmeCreate, db: Session = Depends(get_db)):
@@ -98,17 +96,27 @@ def criar_filme(filme: FilmeCreate, db: Session = Depends(get_db)):
     return novo_filme
 
 
-# DELETE /filmes/{id} -> remove um produto do banco
+@app.get("/filmes/{filme_id}", response_model=FilmeResponse)
+def obter_filme(filme_id: int, db: Session = Depends(get_db)):
+    filme = db.query(FilmeDB).filter(FilmeDB.id == filme_id).first()
+
+    if filme is None:
+        raise HTTPException(status_code=404, detail="Filme não encontrado")
+
+    return filme
+
+
 @app.delete("/filmes/{filme_id}", status_code=204)
 def remover_filme(filme_id: int, db: Session = Depends(get_db)):
     filme = db.query(FilmeDB).filter(FilmeDB.id == filme_id).first()
+
     if filme is None:
         raise HTTPException(status_code=404, detail="Filme não encontrado")
+
     db.delete(filme)
     db.commit()
 
 
-# PUT /filmes/{id} -> atualiza um produto existente no banco
 @app.put("/filmes/{filme_id}", response_model=FilmeResponse)
 def atualizar_filme(
     filme_id: int,
